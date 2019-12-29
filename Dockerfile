@@ -31,7 +31,8 @@ RUN apt-get update \
   && apt-get install -y yarn
 
 # Clear cache
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+# Clean after install
+RUN apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install extensions
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
