@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
+    graphviz \
     openssh-client
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
