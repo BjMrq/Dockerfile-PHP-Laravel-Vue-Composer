@@ -1,0 +1,14 @@
+version: '3'
+services:
+
+  #Laravel App
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dokerfile-test-${APP_NAME}
+    restart: on-failure
+    tty: true
+    working_dir: /var/www
+    
+

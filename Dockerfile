@@ -5,25 +5,25 @@ WORKDIR /var/www
 
 # Install dependencies for laravel
 RUN apt-get update && apt-get install -y \
-    apt-utils \
-    build-essential \
-    default-mysql-client \
-    mariadb-client \
-    libonig-dev \
-    libpng-dev \
-    libzip-dev \
-    #oniguruma-dev \
-    libjpeg62-turbo-dev \
-    libfreetype6-dev \
-    locales \
-    zip \
-    jpegoptim optipng pngquant gifsicle \
-    vim \
-    unzip \
-    git \
-    curl \
-    graphviz \
-    openssh-client
+  apt-utils \
+  build-essential \
+  default-mysql-client \
+  mariadb-client \
+  libonig-dev \
+  libpng-dev \
+  libzip-dev \
+  #oniguruma-dev \
+  libjpeg62-turbo-dev \
+  libfreetype6-dev \
+  locales \
+  zip \
+  jpegoptim optipng pngquant gifsicle \
+  vim \
+  unzip \
+  git \
+  curl \
+  graphviz \
+  openssh-client
 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
   && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
