@@ -1,14 +1,10 @@
-version: '3'
+version: "2.4"
 services:
-
   #Laravel App
   app:
     build:
-      context: .
+      context: ./php-7.3
       dockerfile: Dockerfile
-    container_name: dokerfile-test-${APP_NAME}
-    restart: on-failure
+    image: bjmrq/laravel
     tty: true
     working_dir: /var/www
-    
-
