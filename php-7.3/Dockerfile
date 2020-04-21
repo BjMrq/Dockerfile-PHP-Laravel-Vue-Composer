@@ -22,6 +22,7 @@ RUN apt-get update && \
   git \
   curl \
   graphviz \
+  python-dev \
   openssh-client && \
   rm -rf /var/lib/apt/lists/*
 
