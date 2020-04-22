@@ -29,7 +29,7 @@ RUN apt-get update && \
 
 # Clear cache
 # Clean after install
-RUN apt-get autoremove -y && apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN apt-get autoremove -y && apt-get clean
 
 # Install extensions
 RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
@@ -38,6 +38,8 @@ RUN docker-php-ext-install gd
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Install Prestissimo globally for faster Composer install
+RUN composer global require hirak/prestissimo
 
 # Install Xdebug
 RUN pecl install xdebug \
