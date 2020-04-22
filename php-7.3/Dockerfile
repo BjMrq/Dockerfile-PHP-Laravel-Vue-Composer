@@ -25,8 +25,7 @@ RUN apt-get update && \
   openssh-client && \
   rm -rf /var/lib/apt/lists/*
 
-# Clear cache
-# Clean after install
+# Clear cache after install
 RUN apt-get autoremove -y && apt-get clean 
 
 # Install extensions
@@ -36,6 +35,8 @@ RUN docker-php-ext-install gd
 
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Install Prestissimo globally for faster Composer install
+RUN composer global require hirak/prestissimo
 
 # Install Xdebug
 RUN pecl install xdebug \
