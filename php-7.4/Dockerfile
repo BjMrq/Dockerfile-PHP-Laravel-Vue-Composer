@@ -24,7 +24,6 @@ RUN apt-get update && \
   curl \
   graphviz \
   openssh-client \
-  python-dev \
   --no-install-recommends && \
   rm -rf /var/lib/apt/lists/*
 
