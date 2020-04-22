@@ -39,14 +39,6 @@ RUN curl -sS https://getcomposer.org/installer | php && \
 # Install Prestissimo globally for faster Composer install
 RUN composer global require hirak/prestissimo --no-plugins --no-scripts
 
-# Tiny allows to gracefully process
-ENV TINI_VERSION v0.18.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
-RUN chmod +x /tini
-
-# Tiny entrypoint
-ENTRYPOINT ["/tini", "--"]
-
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
