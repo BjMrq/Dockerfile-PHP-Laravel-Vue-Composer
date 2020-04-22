@@ -36,11 +36,7 @@ RUN docker-php-ext-install gd
 # Install composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 # Install Prestissimo globally for faster Composer install
-RUN composer global require hirak/prestissimo
-
-# Install Xdebug
-RUN pecl install xdebug \
-  && docker-php-ext-enable xdebug
+RUN composer global require hirak/prestissimo --no-plugins --no-scripts
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
