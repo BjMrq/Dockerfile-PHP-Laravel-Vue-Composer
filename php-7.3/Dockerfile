@@ -34,9 +34,18 @@ RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --wi
 RUN docker-php-ext-install gd
 
 # Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN curl -sS https://getcomposer.org/installer | php && \
+  mv composer.phar /usr/local/bin/composer
 # Install Prestissimo globally for faster Composer install
 RUN composer global require hirak/prestissimo --no-plugins --no-scripts
+
+# Tiny allows to gracefully process
+ENV TINI_VERSION v0.18.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+
+# Tiny entrypoint
+ENTRYPOINT ["/tini", "--"]
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
