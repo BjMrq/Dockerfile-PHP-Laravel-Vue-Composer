@@ -23,8 +23,7 @@ RUN apt-get update && \
   git \
   curl \
   graphviz \
-  openssh-client \
-  --no-install-recommends && \
+  openssh-client && \
   rm -rf /var/lib/apt/lists/*
 
 # Clear cache

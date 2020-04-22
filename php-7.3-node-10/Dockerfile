@@ -1,37 +1,17 @@
-FROM php:7.3-fpm
+FROM bjmrq/laravel:php-7.3
 
-# Set working directory
-WORKDIR /var/www
-
-# Install dependencies for laravel
 RUN apt-get update && \
-  apt-get install --no-install-recommends -y \
-  apt-utils \
-  build-essential \
-  default-mysql-client \
-  mariadb-client \
-  libpng-dev \
-  libzip-dev \
-  libjpeg62-turbo-dev \
-  libfreetype6-dev \
-  locales \
-  zip \
-  jpegoptim optipng pngquant gifsicle \
-  vim \
-  unzip \
-  git \
-  curl \
-  graphviz \
-  python-dev \
-  openssh-client && \
+  apt-get install --no-install-recommends -y \ 
+  python-dev && \
   rm -rf /var/lib/apt/lists/*
 
+# Get Nodejs 10 and Yarn 
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
   && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
   && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
 
-RUN apt-get update \
-  && \
+# Install Nodejs and Yarn 
+RUN apt-get update && \
   apt-get install --no-install-recommends -y \
   nodejs \
   yarn && \
@@ -39,27 +19,7 @@ RUN apt-get update \
 
 # Clear cache
 # Clean after install
-RUN apt-get autoremove -y && apt-get clean 
-
-# Install extensions
-RUN docker-php-ext-install pdo_mysql mbstring zip exif pcntl
-RUN docker-php-ext-configure gd --with-gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ --with-png-dir=/usr/include/
-RUN docker-php-ext-install gd
-
-# Install composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Tiny allows to gracefully stop node process
-ENV TINI_VERSION v0.18.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
-RUN chmod +x /tini
-
-# Tiny entrypoint
-ENTRYPOINT ["/tini", "--"]
-
-# Install Xdebug
-RUN pecl install xdebug \
-  && docker-php-ext-enable xdebug
+RUN apt-get autoremove -y && apt-get clean
 
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
